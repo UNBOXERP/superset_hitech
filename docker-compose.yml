@@ -199,6 +199,9 @@ services:
         required: false
     environment:
       CELERYD_CONCURRENCY: 2
+      SCREENSHOT_BROWSER: chromium
+      CHROMIUM_PATH: /usr/bin/chromium  # Ruta típica en Debian/Ubuntu
+      WEBDRIVER_TYPE: chromium
     restart: unless-stopped
     depends_on:
       superset-init:
