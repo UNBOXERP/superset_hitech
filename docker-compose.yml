@@ -199,9 +199,11 @@ services:
         required: false
     environment:
       CELERYD_CONCURRENCY: 2
-      SCREENSHOT_BROWSER: chromium
-      CHROMIUM_PATH: /usr/bin/chromium  # Ruta típica en Debian/Ubuntu
-      WEBDRIVER_TYPE: chromium
+      SCREENSHOT_BROWSER: firefox
+      GECKODRIVER_PATH: /usr/bin/geckodriver
+      FIREFOX_BIN: /usr/bin/firefox
+      WEBDRIVER_TYPE: firefox
+      WEBDRIVER_OPTIONS_ARGS: --headless,--no-sandbox
     restart: unless-stopped
     depends_on:
       superset-init:
