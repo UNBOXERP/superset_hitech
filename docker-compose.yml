@@ -208,7 +208,7 @@ services:
     depends_on:
       superset-init:
         condition: service_completed_successfully
-    user: *superset-user
+    user: "superset"
     volumes: *superset-volumes
     extra_hosts:
       - "host.docker.internal:host-gateway"
