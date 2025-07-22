@@ -1596,7 +1596,7 @@ SLACK_CACHE_TIMEOUT = int(timedelta(days=1).total_seconds())
 # chrome:
 #   Requires: headless chrome
 #   Limitations: unable to generate screenshots of elements
-WEBDRIVER_TYPE = "chrome"
+WEBDRIVER_TYPE = "firefox"
 
 # Window size - this will impact the rendering of the data
 WEBDRIVER_WINDOW = {
