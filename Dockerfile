@@ -196,6 +196,21 @@ RUN /app/docker/apt-install.sh \
       libecpg-dev \
       libldap2-dev
 
+# Instalar Firefox ESR y geckodriver como root
+USER root
+RUN apt-get update && \
+    apt-get install -y firefox-esr wget && \
+    wget -q https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz && \
+    tar -xzf geckodriver-*.tar.gz && \
+    mv geckodriver /usr/local/bin/ && \
+    chmod +x /usr/local/bin/geckodriver && \
+    rm geckodriver-*.tar.gz && \
+    apt-get clean
+
+# Configurar variables de entorno para Firefox
+ENV FIREFOX_BIN=/usr/bin/firefox-esr \
+    GECKODRIVER_PATH=/usr/local/bin/geckodriver
+
 # Copy compiled things from previous stages
 COPY --from=superset-node /app/superset/static/assets superset/static/assets
 
@@ -262,19 +277,3 @@ RUN uv pip install .[postgres]
 USER superset
 CMD ["/app/docker/entrypoints/docker-ci.sh"]
 
-# Instalar dependencias como root
-USER root
-RUN apt-get update && \
-    apt-get install -y firefox-esr wget && \
-    wget -q https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-linux64.tar.gz && \
-    tar -xzf geckodriver-*.tar.gz && \
-    mv geckodriver /usr/local/bin/ && \
-    chmod +x /usr/local/bin/geckodriver && \
-    rm geckodriver-*.tar.gz && \
-    apt-get clean
-
-# Cambiar al usuario superset y configurar entorno
-USER superset
-ENV HOME=/app/superset_home \
-    FIREFOX_BIN=/usr/bin/firefox-esr \
-    GECKODRIVER_PATH=/usr/local/bin/geckodriver
