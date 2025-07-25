@@ -262,8 +262,6 @@ RUN uv pip install .[postgres]
 USER superset
 CMD ["/app/docker/entrypoints/docker-ci.sh"]
 
-FROM apache/superset:3.0.4
-
 # Instalar dependencias como root
 USER root
 RUN apt-get update && \
